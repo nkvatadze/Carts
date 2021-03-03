@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -49,6 +50,10 @@ class Handler extends ExceptionHandler
             }
 
             if($e instanceof AccessDeniedHttpException){
+                return response()->fail(Response::HTTP_BAD_REQUEST, $e->getMessage());
+            }
+
+            if($e instanceof AuthenticationException){
                 return response()->fail(Response::HTTP_BAD_REQUEST, $e->getMessage());
             }
         });

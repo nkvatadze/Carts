@@ -48,4 +48,10 @@ class User extends Authenticatable
             $user->password = bcrypt($user->password);
         });
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')
+            ->withTimestamps()->withPivot('quantity');
+    }
 }

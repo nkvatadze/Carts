@@ -28,7 +28,7 @@ class ResponseServiceProvider extends ServiceProvider
             return Response::json([
                 'code' => $code,
                 'message' => $message
-            ]);
+            ])->setStatusCode($code);
         });
 
         Response::macro('fail', function ($code = 400, $error = '') {

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\API\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +21,8 @@ Route::post('login', [AuthController::class, 'login'])->name('api.login');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products', [ProductsController::class, 'index']);
+    Route::post('/addProductInCart', [ProductsController::class, 'addProductInCart']);
+    Route::post('/removeProductFromCart', [ProductsController::class, 'removeProductFromCart']);
+    Route::post('/setCartProductQuantity', [ProductsController::class, 'setCartProductQuantity']);
+    Route::get('/getUserCart', [ProductsController::class, 'getUserCart']);
 });

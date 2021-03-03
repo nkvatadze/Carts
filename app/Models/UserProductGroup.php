@@ -10,6 +10,8 @@ class UserProductGroup extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'group_id';
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
