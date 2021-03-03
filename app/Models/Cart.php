@@ -29,10 +29,10 @@ class Cart extends Model
         foreach ($data as $key => $value) {
             $groupItemCount = $productGroupItems->where('group_id', $key)->first();
             if ($groupItemCount && count($data[$key]) == $groupItemCount->count) {
-                $min = $data[$key]->min('quantity');
+                $minQuantity = $data[$key]->min('quantity');
                 foreach ($value as $product) {
                     $total = ($product->quantity * $product->price);
-                    $discountPrice = $this->calculateDiscount($product, $min);
+                    $discountPrice = $this->calculateDiscount($product, $minQuantity);
                     $product->price = $total - $discountPrice;
                     $discount += $discountPrice;
                 }
@@ -44,8 +44,8 @@ class Cart extends Model
         ];
     }
 
-    private function calculateDiscount($product, $min)
+    private function calculateDiscount($product, $minQuantity)
     {
-        return $product->price * $min * $product->discount / 100;
+        return $product->price * $minQuantity * $product->discount / 100;
     }
 }

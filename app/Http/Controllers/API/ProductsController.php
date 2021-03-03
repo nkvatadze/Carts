@@ -18,7 +18,7 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::all(); // Here must be pagination
         return response()->json([
             'products' => ProductsResource::collection($products)
         ]);

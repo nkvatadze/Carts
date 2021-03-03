@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $user = User::where('role_id', Role::ADMIN)->firstOrFail();
         \App\Models\Product::factory(20)->for($user)->create();
         \App\Models\UserProductGroup::factory(20)->for($user)->create();
+        \App\Models\ProductGroupItem::factory(20)->create();
     }
 }
