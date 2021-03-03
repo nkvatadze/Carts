@@ -8,6 +8,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    const DATA_COUNT = 20;
+
     /**
      * Seed the application's database.
      *
@@ -18,8 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $user = User::where('role_id', Role::ADMIN)->firstOrFail();
-        \App\Models\Product::factory(20)->for($user)->create();
-        \App\Models\UserProductGroup::factory(20)->for($user)->create();
-        \App\Models\ProductGroupItem::factory(20)->create();
+        \App\Models\Product::factory(self::DATA_COUNT)->for($user)->create();
+        \App\Models\UserProductGroup::factory(self::DATA_COUNT)->for($user)->create();
+        \App\Models\ProductGroupItem::factory(self::DATA_COUNT)->create();
     }
 }
