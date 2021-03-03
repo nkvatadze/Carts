@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +41,16 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (Exception $e, Request $request) {
+            if ($e instanceof ValidationException) {
+                return response()->fail(Response::HTTP_BAD_REQUEST, $e->errors());
+            }
+
+            if($e instanceof AccessDeniedHttpException){
+                return response()->fail(Response::HTTP_BAD_REQUEST, $e->getMessage());
+            }
         });
     }
 }
