@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,8 +16,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'test',
-            'email' => 'test@example.com',
+            'name' => 'admin',
+            'role_id' => Role::ADMIN,
+            'email' => 'admin@example.com',
             'password' => bcrypt('!TestPassword123!')
         ]);
     }
